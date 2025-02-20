@@ -1,292 +1,139 @@
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { FaUser, FaLock, FaEnvelope, FaCity, FaPhone } from 'react-icons/fa';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-
-
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { AiOutlineArrowLeft } from "react-icons/ai";
-
-const SignupPage = () => {
+const Signup = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [mobileNumber, setMobileNumber] = useState('');
+  const [city, setCity] = useState('');
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    mobile: "",
-    dob: "",
-    companyName: "",
-    gstNumber: "",
-    address: "",
-    pincode: "",
-    state: "",
-    password: "",
-    confirmPassword: "",
-  });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = async (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
-   
+    const userData = {
+      name,
+      mobile_number: mobileNumber,
+      email,
+      city,
+      password,
+    };
+
     try {
-      const response = await axios.post(
-        "https://node-fleet.vercel.app/api/register",
-        formData,
-        { headers: { "Content-Type": "application/json" } }
-      );
-
-      toast.success(response.data.message, {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        theme: "colored",
+      const response = await axios.post('https://quirky-backend.vercel.app/api/users/signup', userData, {
+        headers: { 'Content-Type': 'application/json' },
       });
 
-      setTimeout(() => {
-        navigate("/login");
-      }, 3000);
-    } catch (err) {
-      const errorMessage =
-        err.response?.data?.error || "Something went wrong. Please try again.";
-      toast.error(errorMessage, {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        theme: "colored",
-      });
+      if (response.data.message === "User registered successfully") {
+        toast.success('Signup successful! Redirecting to login...');
+        setTimeout(() => navigate('/login'), 2000);
+      }
+    } catch (error) {
+      if (error.response && error.response.data.message === "User already exists") {
+        toast.error('User already exists! Try logging in.');
+      } else {
+        toast.error('Signup failed. Please try again.');
+      }
     }
   };
 
   return (
-    <div
-      className="min-h-screen flex items-center justify-center bg-cover bg-center px-4"
-      style={{ backgroundImage: "url('/loginbg.avif')" }}
-    >
-      <div className="bg-white p-8 rounded-lg shadow-lg max-w-3xl w-full">
-        <ToastContainer />
-        <button
-          onClick={() => navigate("/login")}
-          className="text-blue-800 text-xl mb-4 flex items-center"
-        >
-          <AiOutlineArrowLeft className="mr-2" />
-          Back to Login
-        </button>
-
-        <h1 className="text-2xl font-bold text-blue-800 text-center mb-6">
-          Sign Up &  Join MyFleet
-        </h1>
-        
-
-        <form onSubmit={handleSubmit}>
-          {/* Row 1 */}
-          <div className="grid grid-cols-3 gap-4 mb-4">
+    <div className="flex items-center justify-center   min-h-screen bg-gradient-to-r from-purple-50 to-purple-100 px-4">
+      <div className="w-full max-w-xl bg-white p-10  rounded-xl shadow-xl">
+        <h2 className="text-3xl font-bold text-center text-purple-600 mb-6">Sign Up for QuirkyQ</h2>
+        <form onSubmit={handleSignup}>
+          <div className="grid grid-cols-1  w-[32rem] md:grid-cols-2 gap-4 mb-4">
             <div>
-              <label htmlFor="name" className="block text-gray-700 font-semibold mb-2">
-                Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                placeholder="Enter your name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
+              <label className="block text-gray-700 font-medium mb-2">Full Name</label>
+              <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden">
+                <span className="px-3 text-gray-500"><FaUser /></span>
+                <input 
+                  type="text" 
+                  className="w-full p-3 focus:outline-none" 
+                  placeholder="Enter your full name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                />
+              </div>
             </div>
             <div>
-              <label htmlFor="email" className="block text-gray-700 font-semibold mb-2">
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Enter your email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-            <div>
-              <label htmlFor="mobile" className="block text-gray-700 font-semibold mb-2">
-                Mobile
-              </label>
-              <input
-                type="tel"
-                id="mobile"
-                name="mobile"
-                placeholder="Enter your mobile number"
-                value={formData.mobile}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
+              <label className="block text-gray-700 font-medium mb-2">Email</label>
+              <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden">
+                <span className="px-3 text-gray-500"><FaEnvelope /></span>
+                <input 
+                  type="email" 
+                  className="w-full p-3 focus:outline-none" 
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
             </div>
           </div>
-
-          {/* Row 2 */}
-          <div className="grid grid-cols-3 gap-4 mb-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div>
-              <label htmlFor="dob" className="block text-gray-700 font-semibold mb-2">
-                Date of Joining
-              </label>
-              <input
-                type="date"
-                id="dob"
-                name="dob"
-                value={formData.dob}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
+              <label className="block text-gray-700 font-medium mb-2">Mobile Number</label>
+              <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden">
+                <span className="px-3 text-gray-500"><FaPhone /></span>
+                <input 
+                  type="tel" 
+                  className="w-full p-3 focus:outline-none" 
+                  placeholder="Enter your mobile number"
+                  value={mobileNumber}
+                  onChange={(e) => setMobileNumber(e.target.value)}
+                  required
+                />
+              </div>
             </div>
             <div>
-              <label
-                htmlFor="companyName"
-                className="block text-gray-700 font-semibold mb-2"
-              >
-                Company Name
-              </label>
-              <input
-                type="text"
-                id="companyName"
-                name="companyName"
-                placeholder="Enter company name"
-                value={formData.companyName}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="gstNumber"
-                className="block text-gray-700 font-semibold mb-2"
-              >
-                GST Number
-              </label>
-              <input
-                type="text"
-                id="gstNumber"
-                name="gstNumber"
-                placeholder="Enter GST number"
-                value={formData.gstNumber}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
+              <label className="block text-gray-700 font-medium mb-2">City</label>
+              <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden">
+                <span className="px-3 text-gray-500"><FaCity /></span>
+                <input 
+                  type="text" 
+                  className="w-full p-3 focus:outline-none" 
+                  placeholder="Enter your city"
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                  required
+                />
+              </div>
             </div>
           </div>
-
-          {/* Row 3 */}
-          <div className="grid grid-cols-3 gap-4 mb-4">
-            <div>
-              <label htmlFor="address" className="block text-gray-700 font-semibold mb-2">
-                Address
-              </label>
-              <input
-                type="text"
-                id="address"
-                name="address"
-                placeholder="Enter your address"
-                value={formData.address}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-            <div>
-              <label htmlFor="pincode" className="block text-gray-700 font-semibold mb-2">
-                Pincode
-              </label>
-              <input
-                type="number"
-                id="pincode"
-                name="pincode"
-                placeholder="Enter pincode"
-                value={formData.pincode}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-            <div>
-              <label htmlFor="state" className="block text-gray-700 font-semibold mb-2">
-                State
-              </label>
-              <input
-                type="text"
-                id="state"
-                name="state"
-                placeholder="Enter state"
-                value={formData.state}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-          </div>
-
-          {/* Password Section */}
-          <div className="grid grid-cols-2 gap-4 mb-4">
-            <div>
-              <label htmlFor="password" className="block text-gray-700 font-semibold mb-2">
-                Password
-              </label>
-              <input
-                type="password"
-                id="password"
-                name="password"
+          <div className="mb-6">
+            <label className="block text-gray-700 font-medium mb-2">Password</label>
+            <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden">
+              <span className="px-3 text-gray-500"><FaLock /></span>
+              <input 
+                type="password" 
+                className="w-full p-3 focus:outline-none" 
                 placeholder="Enter your password"
-                value={formData.password}
-                onChange={handleChange}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="confirmPassword"
-                className="block text-gray-700 font-semibold mb-2"
-              >
-                Confirm Password
-              </label>
-              <input
-                type="password"
-                id="confirmPassword"
-                name="confirmPassword"
-                placeholder="Confirm your password"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
           </div>
-
-          <button
-            type="submit"
-            className="w-full bg-blue-800 text-white py-2 px-4 rounded-lg hover:bg-blue-900 transition"
+          <button 
+            type="submit" 
+            className="w-full bg-purple-600 text-white py-3 rounded-lg text-lg font-medium hover:bg-purple-700 transition duration-300"
           >
-            Register
+            Sign Up
           </button>
         </form>
+        <p className="text-center text-gray-600 mt-4">
+          Already have an account? <Link to="/login" className="text-purple-600 hover:underline">Login</Link>
+        </p>
       </div>
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 };
 
-export default SignupPage;
+export default Signup;
