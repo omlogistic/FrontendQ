@@ -1,3 +1,7 @@
+
+
+
+
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaUser, FaLock, FaEnvelope, FaCity, FaPhone } from 'react-icons/fa';
@@ -11,10 +15,13 @@ const Signup = () => {
   const [password, setPassword] = useState('');
   const [mobileNumber, setMobileNumber] = useState('');
   const [city, setCity] = useState('');
+  const [loading, setLoading] = useState(false); // Loader state
   const navigate = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    setLoading(true); // Show loader
+
     const userData = {
       name,
       mobile_number: mobileNumber,
@@ -30,9 +37,13 @@ const Signup = () => {
 
       if (response.data.message === "User registered successfully") {
         toast.success('Signup successful! Redirecting to login...');
-        setTimeout(() => navigate('/login'), 2000);
+        setTimeout(() => {
+          setLoading(false); // Hide loader
+          navigate('/login');
+        }, 2000);
       }
     } catch (error) {
+      setLoading(false); // Hide loader
       if (error.response && error.response.data.message === "User already exists") {
         toast.error('User already exists! Try logging in.');
       } else {
@@ -42,11 +53,13 @@ const Signup = () => {
   };
 
   return (
-    <div className="flex items-center justify-center   min-h-screen bg-gradient-to-r from-purple-50 to-purple-100 px-4">
-      <div className="w-full max-w-xl bg-white p-10  rounded-xl shadow-xl">
-        <h2 className="text-3xl font-bold text-center text-purple-600 mb-6">Sign Up for QuirkyQ</h2>
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-purple-50 to-purple-100 px-4">
+      <div className="w-full max-w-xl bg-white p-10 rounded-xl shadow-xl">
+        <Link to="/quirkyQ">
+          <h2 className="text-3xl font-bold text-center text-purple-600 mb-6">Sign Up for QuirkyQ</h2>
+        </Link>
         <form onSubmit={handleSignup}>
-          <div className="grid grid-cols-1  w-[32rem] md:grid-cols-2 gap-4 mb-4">
+          <div className="grid grid-cols-1 w-[32rem] md:grid-cols-2 gap-4 mb-4">
             <div>
               <label className="block text-gray-700 font-medium mb-2">Full Name</label>
               <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden">
@@ -122,9 +135,15 @@ const Signup = () => {
           </div>
           <button 
             type="submit" 
-            className="w-full bg-purple-600 text-white py-3 rounded-lg text-lg font-medium hover:bg-purple-700 transition duration-300"
+            className="w-full bg-purple-600 text-white py-3 rounded-lg text-lg font-medium hover:bg-purple-700 transition duration-300 flex items-center justify-center"
+            disabled={loading}
           >
-            Sign Up
+            {loading ? (
+              <svg className="animate-spin h-5 w-5 mr-3 text-white" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 00-8 8H4z"></path>
+              </svg>
+            ) : "Sign Up"}
           </button>
         </form>
         <p className="text-center text-gray-600 mt-4">

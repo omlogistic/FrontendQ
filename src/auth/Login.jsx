@@ -1,23 +1,51 @@
-
-
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaUser, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false); // Loader state
+  const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    console.log('Logging in with:', email, password);
+    setLoading(true); // Show loader
+
+    try {
+      const response = await axios.post(
+        'https://quirky-backend.vercel.app/api/users/login',
+        { email, password },
+        { headers: { 'Content-Type': 'application/json' } }
+      );
+
+      if (response.data.message === 'Login successful') {
+        toast.success('Login successful! Redirecting...', { position: "top-right" });
+
+        setTimeout(() => {
+          setLoading(false); // Hide loader
+          navigate('/dashboard');
+        }, 2000);
+      } else {
+        toast.error(response.data.message || 'Something went wrong', { position: "top-right" });
+        setLoading(false); // Hide loader
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || 'Invalid email or password', { position: "top-right" });
+      setLoading(false); // Hide loader
+    }
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-purple-50 to-purple-100 px-4">
       <div className="w-full max-w-md bg-white p-8 rounded-xl shadow-xl">
-        <h2 className="text-3xl font-bold text-center text-purple-600 mb-6">Login to QuirkyQ</h2>
+        <Link to="/quirkyQ">
+          <h2 className="text-3xl font-bold text-center text-purple-600 mb-6">Login to QuirkyQ</h2>
+        </Link>
         <form onSubmit={handleLogin}>
           <div className="mb-4">
             <label className="block text-gray-700 font-medium mb-2">Username or Email</label>
@@ -50,15 +78,22 @@ const Login = () => {
                 className="px-3 text-gray-500"
                 onClick={() => setShowPassword(!showPassword)}
               >
-                {showPassword ?  <FaEye />:  <FaEyeSlash /> }
+                {showPassword ? <FaEye /> : <FaEyeSlash />}
               </button>
             </div>
           </div>
+
           <button 
             type="submit" 
-            className="w-full bg-purple-600 text-white py-3 rounded-lg text-lg font-medium hover:bg-purple-700 transition duration-300"
+            className="w-full bg-purple-600 text-white py-3 rounded-lg text-lg font-medium hover:bg-purple-700 transition duration-300 flex items-center justify-center"
+            disabled={loading}
           >
-            Login
+            {loading ? (
+              <svg className="animate-spin h-5 w-5 mr-3 text-white" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 00-8 8H4z"></path>
+              </svg>
+            ) : "Login"}
           </button>
         </form>
         <p className="text-center text-gray-600 mt-4">

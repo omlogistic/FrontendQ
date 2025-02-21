@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FaUser, FaBuilding, FaEnvelope, FaPhone, FaMapMarkerAlt, FaCity, FaLocationArrow, FaBriefcase, FaFileImage } from 'react-icons/fa';
@@ -44,7 +45,10 @@ const Onboarding = () => {
   return (
     <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-xl border border-purple-300">
       <ToastContainer />
-      <h2 className="text-3xl font-bold text-center text-purple-600 mb-6">Vendor Onboarding</h2>
+     
+      <Link to="/quirkyQ">
+          <h2 className="text-3xl font-bold text-center text-purple-600 mb-6">Vendor Onboarding</h2>
+        </Link>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
