@@ -17,7 +17,7 @@ const Salon = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://localhost:3000/api/vendors', {
+    axios.get('https://quirky-backend.vercel.app/api/vendors', {
       headers: { 'Content-Type': 'application/json' }
     })
     .then(response => {

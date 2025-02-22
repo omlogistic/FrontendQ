@@ -29,7 +29,7 @@
 //     formData.append('interior_image', interiorImageRef.current.files[0]);
 
 //     try {
-//       const response = await axios.post('http://localhost:3000/api/vendors/register', formData, {
+//       const response = await axios.post('https://quirky-backend.vercel.app/api/vendors/register', formData, {
 //         headers: {
 //           'Content-Type': 'multipart/form-data',
 //         },
@@ -270,7 +270,7 @@ const Onboarding = () => {
   //   formData.append('interior_image', interiorImageRef.current.files[0]);
 
   //   try {
-  //     const response = await axios.post('http://localhost:3000/api/vendors/register', formData, {
+  //     const response = await axios.post('https://quirky-backend.vercel.app/api/vendors/register', formData, {
   //       headers: {
   //         'Content-Type': 'multipart/form-data',
   //       },
@@ -303,7 +303,7 @@ const Onboarding = () => {
     };
   
     try {
-      const response = await axios.post('http://localhost:3000/api/vendors/register', formData, {
+      const response = await axios.post('https://quirky-backend.vercel.app/api/vendors/register', formData, {
         headers: {
           'Content-Type': 'application/json',
         },
