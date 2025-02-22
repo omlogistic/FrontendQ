@@ -107,6 +107,8 @@ import Dashboard from "./pages/Dashboard";
 import Salon from "./pages/Salon";
 import Doctor from "./pages/Doctor";
 import { AuthProvider } from "./auth/AuthContext";
+import SalonDetails from "./pages/SalonDetails";
+import DocterDetails from "./pages/DocterDetails";
 
 const App = () => {
   return (
@@ -123,7 +125,9 @@ const App = () => {
           {/* ✅ Apply Protected Route to these pages */}
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path="/salon" element={<ProtectedRoute><Salon /></ProtectedRoute>} />
+          <Route path="/salon/:id" element={<ProtectedRoute><SalonDetails /></ProtectedRoute>} />
           <Route path="/doctor" element={<ProtectedRoute><Doctor /></ProtectedRoute>} />
+          <Route path="/doctors/:id" element={<ProtectedRoute><DocterDetails /></ProtectedRoute>} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
