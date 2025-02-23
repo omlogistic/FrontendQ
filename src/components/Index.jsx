@@ -93,7 +93,7 @@ const FindAndBook = () => {
 
 const BookingSteps = () => {
     return (
-      <div className="w-full py-16 bg-gradient-to-r from-purple-500 to-indigo-600 text-white">
+      <div className=" bg-gradient-to-r from-purple-500 to-indigo-600 text-white   max-w-6xl  rounded-2xl shadow-2xl p-12 relative overflow-hidden ">
         <h2 className="text-4xl font-extrabold text-center mb-8">How It Works</h2>
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center text-center md:text-left space-y-8 md:space-y-0">
           <div className="flex flex-col items-center md:w-1/3 px-6">

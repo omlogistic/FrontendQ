@@ -17,6 +17,7 @@ import { AuthProvider } from "./auth/AuthContext";
 import SalonDetails from "./pages/SalonDetails";
 import DocterDetails from "./pages/DocterDetails";
 import ContactUs from "./components/ContactUs";
+import Apporaval from "./components/Apporaval";
 
 // const App = () => {
 //   return (
@@ -56,6 +57,7 @@ const App = () => {
             <Route path="/professional" element={<VendorOnboard />} />
             <Route path="/quirkyQ" element={<LandingPage />} />
             <Route path="/contact-us" element={<ContactUs />} />
+            <Route path="/Approval" element={<Apporaval />} />
 
             {/* ✅ Apply Protected Route to these pages */}
             <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
