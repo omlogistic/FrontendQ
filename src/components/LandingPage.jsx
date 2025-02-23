@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
+import SalonOnboarding from './Index';
 
 const LandingPage = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -34,7 +35,8 @@ const LandingPage = () => {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col">
+   <div>
+     <div className="min-h-screen flex flex-col">
       <header className={`fixed top-0 left-0 w-full z-50 transition-all ${isScrolled ? 'bg-white shadow-md' : 'bg-transparent'}`}>
         <Header />
       </header>
@@ -77,9 +79,14 @@ const LandingPage = () => {
           </Link>
         </div>
       </main>
-      <Footer />
+   
     </div>
+    <SalonOnboarding/>
+    <Footer />
+   </div>
   );
 };
 
 export default LandingPage;
+
+
