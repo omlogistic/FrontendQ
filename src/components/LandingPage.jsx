@@ -42,10 +42,10 @@ const LandingPage = () => {
       </header>
       <main className="flex-grow pt-24 px-4 sm:px-6 lg:px-8 py-16 bg-gradient-to-r from-purple-50 to-purple-100">
         <div className="text-center mb-16">
-          <h1 className="text-5xl font-extrabold text-gray-900 mb-4">
+          <h1 className="text-6xl font-extrabold text-gray-900 mb-4">
             Welcome to <span className="text-purple-600">QuirkyQ</span>
           </h1>
-          <p className="text-xl text-gray-700">
+          <p className="text-2xl text-gray-700">
             Your one-stop solution for Salon and Doctor bookings
           </p>
         </div>

@@ -1,92 +1,129 @@
-// // SalonOnboarding.js
-// import React from 'react';
-// import { Link } from 'react-router-dom';
-
-// const SalonOnboarding = () => {
-//   return (
-//     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
-//       <div className="max-w-6xl w-full bg-white rounded-2xl shadow-2xl p-12 relative overflow-hidden">
-//         <div className="text-center">
-//           <h1 className="text-5xl font-extrabold text-gray-800 mb-4">
-//             Quick & Easy
-//           </h1>
-//           <h2 className="text-6xl font-extrabold text-purple-600 mb-6 leading-tight">
-//             1000s of Salons Coming Onboard
-//           </h2>
-//           <p className="text-xl text-gray-600 mb-10">
-//             Each day, thousands of salons from across the globe join us, 
-//             enriching our beauty and wellness network. This growth ensures 
-//             more choices and convenience for our cherished customers.
-//           </p>
-
-//           <div className="flex flex-wrap items-center justify-center gap-6 mb-10">
-//             <a href="#" target="_blank" rel="noopener noreferrer">
-//               <img 
-//                 src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" 
-//                 alt="Salon Partner 1" 
-//                 className="rounded-full w-28 h-28 object-cover shadow-lg hover:scale-110 transition-transform"
-//               />
-//             </a>
-//             <a href="#" target="_blank" rel="noopener noreferrer">
-//               <img 
-//                 src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" 
-//                 alt="Salon Partner 2" 
-//                 className="rounded-full w-28 h-28 object-cover shadow-lg hover:scale-110 transition-transform"
-//               />
-//             </a>
-//             <a href="#" target="_blank" rel="noopener noreferrer">
-//               <img 
-//                 src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" 
-//                 alt="Salon Partner 3" 
-//                 className="rounded-full w-28 h-28 object-cover shadow-lg hover:scale-110 transition-transform"
-//               />
-//             </a>
-//             <a href="#" target="_blank" rel="noopener noreferrer">
-//               <img 
-//                 src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" 
-//                 alt="Salon Partner 4" 
-//                 className="rounded-full w-28 h-28 object-cover shadow-lg hover:scale-110 transition-transform"
-//               />
-//             </a>
-//             <a href="#" target="_blank" rel="noopener noreferrer">
-//               <img 
-//                 src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" 
-//                 alt="Salon Partner 5" 
-//                 className="rounded-full w-28 h-28 object-cover shadow-lg hover:scale-110 transition-transform"
-//               />
-//             </a>
-//           </div>
-//              <Link
-//                        to="/professional"
-                      
-//                      >
-//                       <button className="bg-purple-600 text-white px-10 py-4 rounded-full font-bold hover:bg-purple-700 transition duration-300 shadow-lg transform hover:scale-105">
-//             Get Started
-//           </button>
-//                      </Link>
-         
-
-//           <div className="mt-8">
-//             <a 
-//               href="#" 
-//               className="text-purple-600 hover:underline font-medium text-lg"
-//             >
-//               Questions? We can help
-//             </a>
-//           </div>
-//         </div>
-//       </div>
-   
-//     </div>
-//   );
-// };
-
-// export default SalonOnboarding;
 
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { FaCalendarCheck, FaUserMd, FaCut } from 'react-icons/fa';
 
+// FindAndBook Component
+const FindAndBook = () => {
+  const [selectedService, setSelectedService] = useState('Salon');
+
+  const handleServiceChange = (service) => {
+    setSelectedService(service);
+  };
+
+  return (
+    <section className="py-16 bg-gradient-to-r from-purple-50 to-purple-100">
+      <div className="max-w-6xl mx-auto bg-white rounded-3xl shadow-xl p-12 text-center">
+        
+        <h2 className="text-5xl font-extrabold text-gray-900 mb-4">
+        Find & Book an <span className="text-purple-600">  Appointment</span>
+          </h2>
+        <p className="text-lg text-gray-600 mb-10">
+          Choose your preferred service and learn more about our offerings.
+        </p>
+
+        {/* Service Selector */}
+        <div className="flex justify-center gap-4 mb-8">
+          <button
+            onClick={() => handleServiceChange('Salon')}
+            className={`px-6 py-3 rounded-full font-bold transition duration-300 ${
+              selectedService === 'Salon'
+                ? 'bg-purple-600 text-white'
+                : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+            }`}
+          >
+            Salon
+          </button>
+          <button
+            onClick={() => handleServiceChange('Doctor')}
+            className={`px-6 py-3 rounded-full font-bold transition duration-300 ${
+              selectedService === 'Doctor'
+                ? 'bg-purple-600 text-white'
+                : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+            }`}
+          >
+            Doctor
+          </button>
+        </div>
+
+        {/* Service Description */}
+        <div>
+          {selectedService === 'Salon' ? (
+            <div>
+              <h3 className="text-4xl font-bold text-purple-600 mb-4">
+                Salon Services
+              </h3>
+              <p className="text-lg text-gray-700 mb-6">
+                Experience top-notch salon services including haircuts, styling,
+                beauty treatments, and more. Our partnered salons offer
+                professional services tailored to your needs.
+              </p>
+              <img
+                src="/image/salon2.webp"
+                alt="Salon"
+                className="w-full rounded-3xl shadow-lg object-cover h-96"
+              />
+            </div>
+          ) : (
+            <div>
+              <h3 className="text-4xl font-bold text-purple-600 mb-4">
+                Doctor Appointments
+              </h3>
+              <p className="text-lg text-gray-700 mb-6">
+                Connect with trusted healthcare professionals. Book
+                consultations, check-ups, and medical advice from experienced
+                doctors at your convenience.
+              </p>
+              <img
+                src="image/doctor2.webp"
+                alt="Doctor"
+                className="w-full rounded-3xl shadow-lg object-cover h-96"
+              />
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+
+
+
+const BookingSteps = () => {
+    return (
+      <div className="w-full py-16 bg-gradient-to-r from-purple-500 to-indigo-600 text-white">
+        <h2 className="text-4xl font-extrabold text-center mb-8">How It Works</h2>
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center text-center md:text-left space-y-8 md:space-y-0">
+          <div className="flex flex-col items-center md:w-1/3 px-6">
+            <div className="bg-white text-purple-600 p-4 rounded-full shadow-lg mb-4">
+              <FaUserMd size={40} />
+            </div>
+            <h3 className="text-xl font-semibold">Select Service</h3>
+            <p className="mt-2 text-gray-200">Choose from a variety of salon and doctor services tailored to your needs.</p>
+          </div>
+          <div className="flex flex-col items-center md:w-1/3 px-6">
+            <div className="bg-white text-purple-600 p-4 rounded-full shadow-lg mb-4">
+              <FaCalendarCheck size={40} />
+            </div>
+            <h3 className="text-xl font-semibold">Choose Date & Time</h3>
+            <p className="mt-2 text-gray-200">Pick a convenient date and time for your appointment effortlessly.</p>
+          </div>
+          <div className="flex flex-col items-center md:w-1/3 px-6">
+            <div className="bg-white text-purple-600 p-4 rounded-full shadow-lg mb-4">
+              <FaCut size={40} />
+            </div>
+            <h3 className="text-xl font-semibold">Confirm Booking</h3>
+            <p className="mt-2 text-gray-200">Finalize your appointment and get ready for your session.</p>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+
+// Main SalonOnboarding Component
 const SalonOnboarding = () => {
   const whyChooseUs = [
     {
@@ -130,67 +167,29 @@ const SalonOnboarding = () => {
       </section>
 
       {/* Onboarding Section */}
-      <div className="w-full max-w-6xl bg-white rounded-2xl shadow-2xl p-12 relative overflow-hidden">
+      <div className="w-full max-w-6xl bg-white rounded-2xl shadow-2xl p-12 relative overflow-hidden mb-12">
         <div className="text-center">
           <h1 className="text-5xl font-extrabold text-gray-800 mb-4">
             Quick & Easy
           </h1>
-          <h2 className="text-6xl font-extrabold text-purple-600 mb-6 leading-tight">
-            1000s of Salons Coming Onboard
+          <h2 className="text-5xl font-extrabold text-purple-600 mb-6 leading-tight">
+            1000s of Professional Coming Onboard
           </h2>
           <p className="text-xl text-gray-600 mb-10">
-            Each day, thousands of salons from across the globe join us, 
-            enriching our beauty and wellness network. This growth ensures 
-            more choices and convenience for our cherished customers.
+            Each day, thousands of salons & doctos from across the globe join us, 
+            enriching our beauty and wellness network.
           </p>
 
-          <div className="flex flex-wrap items-center justify-center gap-6 mb-10">
-            <a href="#" target="_blank" rel="noopener noreferrer">
-              <img 
-                src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" 
-                alt="Salon Partner 1" 
-                className="rounded-full w-28 h-28 object-cover shadow-lg hover:scale-110 transition-transform"
-              />
-            </a>
-            <a href="#" target="_blank" rel="noopener noreferrer">
-              <img 
-                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" 
-                alt="Salon Partner 2" 
-                className="rounded-full w-28 h-28 object-cover shadow-lg hover:scale-110 transition-transform"
-              />
-            </a>
-            <a href="#" target="_blank" rel="noopener noreferrer">
-              <img 
-                src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" 
-                alt="Salon Partner 3" 
-                className="rounded-full w-28 h-28 object-cover shadow-lg hover:scale-110 transition-transform"
-              />
-            </a>
-            <a href="#" target="_blank" rel="noopener noreferrer">
-              <img 
-                src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" 
-                alt="Salon Partner 4" 
-                className="rounded-full w-28 h-28 object-cover shadow-lg hover:scale-110 transition-transform"
-              />
-            </a>
-          </div>
-          
           <Link to="/professional">
             <button className="bg-purple-600 text-white px-10 py-4 rounded-full font-bold hover:bg-purple-700 transition duration-300 shadow-lg transform hover:scale-105">
               Get Started
             </button>
           </Link>
-
-          <div className="mt-8">
-            <a 
-              href="#" 
-              className="text-purple-600 hover:underline font-medium text-lg"
-            >
-              Questions? We can help
-            </a>
-          </div>
         </div>
       </div>
+
+      <BookingSteps/>
+      <FindAndBook />
     </div>
   );
 };
