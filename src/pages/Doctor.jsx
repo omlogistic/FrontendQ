@@ -141,7 +141,7 @@ const Doctor = () => {
 
   useEffect(() => {
     axios
-      .get('https://quirky-backend.vercel.app/api/vendors', {
+      .get('https://quirky-backend.vercel.app/api/admin/vendors', {
         headers: { 'Content-Type': 'application/json' },
       })
       .then((response) => {
