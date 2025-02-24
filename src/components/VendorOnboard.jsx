@@ -303,7 +303,7 @@ const Onboarding = () => {
     };
   
     try {
-      const response = await axios.post('https://quirky-backend.vercel.app/api/vendors/register', formData, {
+      const response = await axios.post('https://quirky-backend.vercel.app/api/register', formData, {
         headers: {
           'Content-Type': 'application/json',
         },
