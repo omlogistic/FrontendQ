@@ -141,7 +141,7 @@ const AdminLogin = () => {
         </form>
         <p className="text-center text-gray-600 mt-4">
           Don't have an account?{" "}
-          <Link to="/signup" className="text-purple-600 hover:underline">
+          <Link to="/professional" className="text-purple-600 hover:underline">
             Sign Up
           </Link>
         </p>
