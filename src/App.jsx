@@ -18,6 +18,8 @@ import SalonDetails from "./pages/SalonDetails";
 import DocterDetails from "./pages/DocterDetails";
 import ContactUs from "./components/ContactUs";
 import Apporaval from "./components/Apporaval";
+import AdminLogin from "./auth/AdminLogin";
+import AdminDashboard from "./components/admin/AdminDashboard";
 
 // const App = () => {
 //   return (
@@ -53,6 +55,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Navigate to="/quirkyQ" replace />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/admin-login" element={<AdminLogin />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/professional" element={<VendorOnboard />} />
             <Route path="/quirkyQ" element={<LandingPage />} />
@@ -65,6 +68,7 @@ const App = () => {
             <Route path="/salon/:id" element={<ProtectedRoute><SalonDetails /></ProtectedRoute>} />
             <Route path="/doctor" element={<ProtectedRoute><Doctor /></ProtectedRoute>} />
             <Route path="/doctors/:id" element={<ProtectedRoute><DocterDetails /></ProtectedRoute>} />
+            <Route path="/admin-dashboard" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>

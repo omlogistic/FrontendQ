@@ -3,15 +3,16 @@
 import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaUserCircle } from 'react-icons/fa';
-import { AuthContext } from "../auth/AuthContext";
+import { AuthContext } from '../../auth/AuthContext';
 
-const Navbar = () => {
+
+const AdminHeader = () => {
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
-    navigate('/quirkyQ');
+    navigate('/admin-login');
   };
 
   // Extract first name and full name
@@ -47,5 +48,5 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default AdminHeader;
 

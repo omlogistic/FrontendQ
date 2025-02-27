@@ -1,6 +1,4 @@
 
-
-// src/components/Login.jsx
 import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
@@ -9,7 +7,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../auth/AuthContext"; // ✅ Import AuthContext
 
-const Login = () => {
+const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -17,24 +15,58 @@ const Login = () => {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext); // ✅ Use login from AuthContext
 
+  // const handleLogin = async (e) => {
+  //   e.preventDefault();
+  //   setLoading(true);
+  
+  //   try {
+  //     const response = await axios.post(
+  //       "https://quirky-backend.vercel.app/api/admin/login",
+  //       { email, password },
+  //       { headers: { "Content-Type": "application/json" } }
+  //     );
+  
+  //     // ✅ Adjusted to match the new API response format
+  //     if (response.data.message === "Login successful.") {
+  //       toast.success("Login successful! Redirecting...", { position: "top-right" });
+  
+  //       // ✅ Save vendor data to context
+  //       login(response.data.vendor);
+  
+  //       setTimeout(() => {
+  //         // ✅ Redirect to /admin-dashboard after successful login
+  //         navigate("/admin-dashboard");
+  //       }, 1000);
+  //     } else {
+  //       toast.error(response.data.message || "Something went wrong", { position: "top-right" });
+  //     }
+  //   } catch (error) {
+  //     toast.error(error.response?.data?.message || "Invalid email or password", { position: "top-right" });
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+  
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
-
+  
     try {
       const response = await axios.post(
-        "https://quirky-backend.vercel.app/api/users/login",
+        "https://quirky-backend.vercel.app/api/admin/login",
         { email, password },
         { headers: { "Content-Type": "application/json" } }
       );
-
-      if (response.data.message === "Login successful") {
+  
+      if (response.data.message === "Login successful.") {
         toast.success("Login successful! Redirecting...", { position: "top-right" });
-
-        login(response.data.user); // ✅ Pass the user data to login function
-
+  
+        // ✅ Save vendor data (including id) to AuthContext
+        login(response.data.vendor);
+  
         setTimeout(() => {
-          navigate("/dashboard");
+          navigate("/admin-dashboard"); // ✅ Redirect after login
         }, 1000);
       } else {
         toast.error(response.data.message || "Something went wrong", { position: "top-right" });
@@ -45,13 +77,13 @@ const Login = () => {
       setLoading(false);
     }
   };
-
+  
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-purple-50 to-purple-100 px-4">
       <div className="w-full max-w-md bg-white p-8 rounded-xl shadow-xl">
         <Link to="/quirkyQ">
           <h2 className="text-3xl font-bold text-center text-purple-600 mb-6">
-            Login to QuirkyQ
+           Admin Login to QuirkyQ
           </h2>
         </Link>
         <form onSubmit={handleLogin}>
@@ -118,4 +150,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default AdminLogin;
