@@ -765,7 +765,7 @@ const Onboarding = () => {
       const config = {
         method: 'get',
         maxBodyLength: Infinity,
-        url: `http://localhost:3000/api/address?pincode=${pincode}`,
+        url: `https://quirky-backend.vercel.app/api/address?pincode=${pincode}`,
         headers: { 'Content-Type': 'application/json' },
       };
 
