@@ -20,6 +20,7 @@ import ContactUs from "./components/ContactUs";
 import Apporaval from "./components/Apporaval";
 import AdminLogin from "./auth/AdminLogin";
 import AdminDashboard from "./components/admin/AdminDashboard";
+import AdminService from "./components/admin/AdminService";
 
 // const App = () => {
 //   return (
@@ -69,6 +70,7 @@ const App = () => {
             <Route path="/doctor" element={<ProtectedRoute><Doctor /></ProtectedRoute>} />
             <Route path="/doctors/:id" element={<ProtectedRoute><DocterDetails /></ProtectedRoute>} />
             <Route path="/admin-dashboard" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
+            <Route path="/admin-service" element={<ProtectedRoute><AdminService /></ProtectedRoute>} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>
